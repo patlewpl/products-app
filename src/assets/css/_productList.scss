@@ -1,0 +1,50 @@
+@import "./shared.scss";
+
+.product__list {
+  margin: 0 auto;
+  max-width: 1300px;
+
+  & h1 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+  & p {
+    margin-bottom: 20px;
+
+    & a {
+      color: $text;
+      text-decoration: none;
+    }
+  }
+}
+
+.pagination {
+  margin: 10px 0;
+}
+
+.page__item {
+  display: inline-block;
+}
+.page__link {
+  padding: 4px;
+  margin: 4px;
+  width: 30px;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:focus,
+  &:hover,
+  &.active {
+    background-color: $hover;
+    color: $title-inverse;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product__list {
+    & h1,
+    & p {
+      margin-left: 4px;
+    }
+  }
+}

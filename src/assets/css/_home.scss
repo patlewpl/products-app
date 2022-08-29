@@ -1,0 +1,47 @@
+@import "./_shared.scss";
+section {
+  margin-bottom: 50px;
+}
+h1 {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+}
+h2 {
+  margin-bottom: 40px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+ul {
+  display: flex;
+  justify-content: space-between;
+
+  & li {
+    text-align: center;
+    list-style-type: none;
+
+    & p {
+      margin-top: 10px;
+    }
+
+    & i {
+      font-size: 3rem;
+      color: $secondary;
+    }
+  }
+}
+a {
+  color: $secondary;
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    padding: 0 20px;
+  }
+  ul {
+    flex-direction: column;
+
+    & li {
+      margin-bottom: 40px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@import "./_shared.scss";
+
+.login__form {
+  margin: 20vh auto 0;
+  max-width: 1300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  & label {
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  & input {
+    margin-bottom: 10px;
+    padding: 4px;
+  }
+
+  & button {
+    padding: 10px 20px;
+    background-color: $primary;
+    color: $title-inverse;
+    border: none;
+    border-radius: 4px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $hover;
+    }
+  }
+}
+
+.error__message {
+  margin: 20px 0;
+  color: $primary;
+}
