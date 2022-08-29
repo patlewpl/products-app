@@ -1,6 +1,6 @@
 <template>
   <section class="product__list">
-    <h1>Product List</h1>
+    <h1>Product List - {{ products.length }} products</h1>
     <base-button class="primary">Add product</base-button>
     <base-spinner v-if="isLoading"></base-spinner>
     <product-details
@@ -57,7 +57,6 @@ export default {
       const response = await fetch(url);
       const responseData = await response.json();
       products.value = responseData;
-      console.log(responseData);
       isLoading.value = false;
     }
 
@@ -89,6 +88,7 @@ export default {
     });
 
     return {
+      products,
       allProducts,
       pages,
       page,
