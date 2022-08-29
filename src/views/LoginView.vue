@@ -16,7 +16,7 @@
           required
         />
       </div>
-      <button>Sign in</button>
+      <base-button class="primary">Sign in</base-button>
     </form>
   </section>
 </template>
@@ -26,9 +26,10 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import BaseSpinner from "@/components/ui/BaseSpinner.vue";
+import BaseButton from "../components/ui/BaseButton.vue";
 
 export default {
-  components: { BaseSpinner },
+  components: { BaseSpinner, BaseButton },
   setup() {
     const store = useStore();
     const router = useRouter();

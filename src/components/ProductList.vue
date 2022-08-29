@@ -1,10 +1,7 @@
 <template>
   <section class="product__list">
     <h1>Product List</h1>
-    <p v-if="!isLogged">
-      If you want edit products, please
-      <router-link to="/login">Login</router-link>.
-    </p>
+    <base-button class="primary">Add product</base-button>
     <base-spinner v-if="isLoading"></base-spinner>
     <product-details
       v-if="!isLoading"
@@ -15,6 +12,7 @@
       :productPrice="product.price"
       :productCategory="product.category.name"
       :productImage="product.images[0]"
+      :dataId="product.id"
     >
     </product-details>
     <ul class="pagination">
@@ -35,16 +33,14 @@
 <script lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 
-import { useStore } from "vuex";
-
 import ProductDetails from "./ProductDetails.vue";
 import BaseSpinner from "./ui/BaseSpinner.vue";
+import BaseButton from "./ui/BaseButton.vue";
 
 export default {
-  components: { ProductDetails, BaseSpinner },
+  components: { ProductDetails, BaseSpinner, BaseButton },
 
   setup() {
-    const store = useStore();
     const products: any = ref([]);
     const page: any = ref(1);
     const pages: any = ref([]);
@@ -55,16 +51,13 @@ export default {
       return paginate(products.value);
     });
 
-    const isLogged = computed(() => {
-      return store.getters.isAuthenticated;
-    });
-
     async function fetchProducts() {
       isLoading.value = true;
       const url: string = "https://api.escuelajs.co/api/v1/products";
       const response = await fetch(url);
       const responseData = await response.json();
       products.value = responseData;
+      console.log(responseData);
       isLoading.value = false;
     }
 
@@ -100,7 +93,6 @@ export default {
       pages,
       page,
       isLoading,
-      isLogged,
     };
   },
 };

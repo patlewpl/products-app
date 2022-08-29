@@ -7,7 +7,7 @@
   </router-link>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     mode: {
@@ -28,45 +28,42 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import "../../assets/css/shared.scss";
+
 button,
 a {
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  font: inherit;
-  background-color: #3a0061;
-  border: 1px solid #3a0061;
-  color: white;
-  cursor: pointer;
-  border-radius: 30px;
-  margin-right: 0.5rem;
+  padding: 10px 20px;
   display: inline-block;
-}
-
-a:hover,
-a:active,
-button:hover,
-button:active {
-  background-color: #270041;
-  border-color: #270041;
-}
-
-.flat {
-  background-color: transparent;
-  color: #3a0061;
+  background-color: $primary;
+  color: $title-inverse;
   border: none;
-}
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
 
-.outline {
-  background-color: transparent;
-  border-color: #270041;
-  color: #270041;
-}
+  &:hover,
+  &:active {
+    background-color: $hover;
+  }
 
-.flat:hover,
-.flat:active,
-.outline:hover,
-.outline:active {
-  background-color: #edd2ff;
+  &.primary {
+    background-color: $primary;
+
+    &:hover,
+    &:active {
+      background-color: $hover;
+    }
+  }
+
+  &.secondary {
+    background-color: $secondary;
+
+    &:hover,
+    &:active {
+      background-color: $hover;
+    }
+  }
 }
 </style>

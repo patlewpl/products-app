@@ -7,14 +7,20 @@
         </router-link>
       </div>
       <nav class="menu">
-        <router-link v-if="!isLogged" class="menu__item login" to="/login">
-          Login
-        </router-link>
+        <base-button
+          v-if="!isLogged"
+          link
+          class="menu__item primary"
+          to="/login"
+          >Login
+        </base-button>
         <div v-else>
-          <router-link class="menu__item products" to="/products">
+          <base-button link class="menu__item primary" to="/products">
             Products
-          </router-link>
-          <button class="menu__item logout" @click="logout">Logout</button>
+          </base-button>
+          <base-button class="menu__item logout secondary" @click="logout">
+            Logout
+          </base-button>
         </div>
       </nav>
     </div>
@@ -25,27 +31,26 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import BaseButton from "../components/ui/BaseButton.vue";
 
 export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-
     const isLogged = computed(() => {
       return store.getters.isAuthenticated;
     });
-
     function logout() {
       localStorage.removeItem("access_token");
       store.dispatch("logout");
       router.replace("/login");
     }
-
     return {
       isLogged,
       logout,
     };
   },
+  components: { BaseButton },
 };
 </script>
 

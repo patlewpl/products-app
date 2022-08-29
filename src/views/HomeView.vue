@@ -25,7 +25,7 @@
     <section>
       <p>
         If you want test our app, feel free to
-        <router-link to="#">Contact us</router-link>!
+        <base-button link to="#" class="secondary">Contact us</base-button>
       </p>
     </section>
   </main>
