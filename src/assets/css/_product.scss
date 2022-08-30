@@ -31,21 +31,18 @@
   &__description {
     max-width: 300px;
     font-size: 0.8rem;
+    word-break: break-word;
   }
 
   &__actions {
     margin-left: 10px;
-  }
-}
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
-.product__actions {
-  display: flex;
-
-  justify-content: center;
-  flex-direction: column;
-
-  & button {
-    margin-top: 10px;
+    & button {
+      margin-top: 10px;
+    }
   }
 }
 
@@ -58,6 +55,7 @@
 
     &__column--right {
       flex-direction: column;
+      align-items: flex-start;
     }
 
     &__image {
@@ -67,6 +65,15 @@
 
     &__details {
       padding: 10px 0;
+    }
+
+    &__actions {
+      margin-left: 0px;
+      display: block;
+
+      & button {
+        margin-right: 10px;
+      }
     }
   }
 }

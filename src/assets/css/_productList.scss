@@ -1,6 +1,7 @@
 @import "./shared.scss";
 
 .product__list {
+  padding: 0 20px;
   margin: 0 auto;
   max-width: 1300px;
 
@@ -38,6 +39,11 @@
     background-color: $hover;
     color: $title-inverse;
   }
+}
+
+.success {
+  margin-top: 10px;
+  color: $color-7;
 }
 
 @media screen and (max-width: 768px) {

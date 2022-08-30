@@ -13,43 +13,38 @@
         <p class="product__description">{{ productDescription }}</p>
       </div>
       <div class="product__actions">
-        <base-button class="secondary">Edit</base-button>
-        <base-button class="primary" @click="confirmAction('delete')"
-          >Delete</base-button
-        >
+        <base-button class="secondary" @click="activateEditModal('edit')">
+          Edit
+        </base-button>
+        <base-button class="primary" @click="confirmAction('delete')">
+          Delete
+        </base-button>
       </div>
     </div>
-    <teleport to="body">
-      <div
-        v-if="isConfirmModalVisible"
-        class="modal"
-        @wheel.prevent
-        @touchmove.prevent
-        @scroll.prevent
-        @click="closeModal"
-      >
-        <dialog open>
-          <header>
-            <h2>{{ actionMethod }}{{ productTitle }}?</h2>
-          </header>
-          <main>
-            <base-button @click="action" class="primary">Confirm</base-button>
-            <base-button @click="closeModal" class="secondary"
-              >Close
-            </base-button>
-          </main>
-        </dialog>
-      </div>
-    </teleport>
   </div>
+  <base-dialog
+    mode="delete"
+    v-if="isConfirmModalVisible"
+    :productId="dataId.toString()"
+    :productTitle="productTitle"
+    :actionTitle="actionTitle"
+    :action="action"
+    @close="closeModal"
+  ></base-dialog>
+  <base-dialog
+    mode="edit"
+    v-if="isEditAvailable"
+    :productId="dataId.toString()"
+    :productTitle="productTitle"
+    :actionTitle="actionTitle"
+    :action="action"
+    @close="closeModal"
+  ></base-dialog>
 </template>
 <script lang="ts">
 import { ref } from "vue";
 
-import BaseButton from "./ui/BaseButton.vue";
-
 export default {
-  components: { BaseButton },
   props: [
     "productTitle",
     "productDescription",
@@ -60,76 +55,59 @@ export default {
   ],
   setup(props: any) {
     const isConfirmModalVisible = ref(false);
-    const actionMethod = ref("");
+    const isEditAvailable: any = ref(false);
+    const actionTitle = ref("");
     const action: any = ref(null);
-
     function confirmAction(type: string) {
       isConfirmModalVisible.value = true;
       if (type === "delete") {
-        actionMethod.value = "Delete ";
+        actionTitle.value = "Delete";
         action.value = deleteProduct;
       }
     }
-
+    function closeModal() {
+      isConfirmModalVisible.value = false;
+      isEditAvailable.value = false;
+    }
     async function deleteProduct() {
+      const token = localStorage.getItem("access_token");
       const url: string = `https://api.escuelajs.co/api/v1/products/${props.dataId}`;
       const response = await fetch(url, {
         method: "DELETE",
+        headers: {
+          Authorization: `Baerer ${token}`,
+        },
       });
-
       if (response) {
         location.reload();
       }
     }
 
-    function closeModal() {
-      isConfirmModalVisible.value = false;
+    function activateEditModal(type: string) {
+      isEditAvailable.value = true;
+      if (type === "edit") {
+        actionTitle.value = "Update";
+        action.value = editProduct;
+      }
+    }
+
+    function editProduct() {
+      console.log("updated");
     }
 
     return {
-      confirmAction,
+      activateEditModal,
       isConfirmModalVisible,
-      actionMethod,
+      isEditAvailable,
+      confirmAction,
       deleteProduct,
-      action,
+      actionTitle,
       closeModal,
+      action,
     };
   },
 };
 </script>
 <style lang="scss" scoped>
 @import "../assets/css/product.scss";
-
-.modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgb(0, 0, 0, 0.4);
-
-  & dialog {
-    padding: 20px 40px;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: none;
-    box-shadow: 2px 2px 8px 8px $shadow;
-
-    & header {
-      margin-bottom: 20px;
-
-      & h2 {
-        font-size: 1.2rem;
-      }
-    }
-
-    & main {
-      & button {
-        margin-right: 10px;
-      }
-    }
-  }
-}
 </style>

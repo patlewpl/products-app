@@ -30,3 +30,14 @@ header {
 .logout {
   margin-left: 10px;
 }
+
+@media screen and (max-width: 768px) {
+  .menu div {
+    display: flex;
+    flex-direction: column-reverse;
+
+    & button {
+      margin-bottom: 4px;
+    }
+  }
+}
