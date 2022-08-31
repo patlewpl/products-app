@@ -1,14 +1,14 @@
 <template>
   <base-spinner v-if="isLoading"></base-spinner>
   <section v-else class="login__form">
-    <p class="error__message" v-if="!isFormValid">Invalid email or password!</p>
+    <p class="error__message" v-if="!isFormValid">{{ $t("invalid_login") }}</p>
     <form @submit.prevent="signIn">
       <div class="form-control">
-        <label for="email">Email</label>
+        <label for="email">{{ $t("email") }}</label>
         <input type="email" id="email" v-model="formData.email" required />
       </div>
       <div class="form-control">
-        <label for="password">Password</label>
+        <label for="password">{{ $t("password") }}</label>
         <input
           type="password"
           id="password"
@@ -16,7 +16,7 @@
           required
         />
       </div>
-      <base-button class="primary">Sign in</base-button>
+      <base-button class="primary">{{ $t("login") }}</base-button>
     </form>
   </section>
 </template>

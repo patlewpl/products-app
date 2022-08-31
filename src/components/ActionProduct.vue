@@ -3,13 +3,18 @@
     <div class="modal" @wheel.prevent @touchmove.prevent @scroll.prevent>
       <dialog open>
         <header>
-          <h2>{{ modalTitle }}</h2>
+          <h2 v-if="mode === 'edit'">
+            {{ $t("update") }} {{ productTitle }} (id: {{ productId }})
+          </h2>
+          <h2 v-else-if="mode === 'add'">
+            {{ $t("add_product") }}
+          </h2>
         </header>
         <main>
           <form @submit.prevent="fetchActionProductConfirm">
             <div class="add__form">
               <div class="form-control">
-                <label for="title">Product Name </label>
+                <label for="title">{{ $t("product_name") }}</label>
                 <input
                   type="text"
                   id="title"
@@ -20,7 +25,7 @@
                 />
               </div>
               <div class="form-control">
-                <label for="price">Price </label>
+                <label for="price">{{ $t("product_price") }} </label>
                 <input
                   type="number"
                   id="price"
@@ -31,7 +36,9 @@
                 />
               </div>
               <div class="form-control">
-                <label for="description">Description </label>
+                <label for="description"
+                  >{{ $t("product_description") }}
+                </label>
                 <input
                   type="text"
                   id="description"
@@ -42,7 +49,7 @@
                 />
               </div>
               <div class="form-control">
-                <label for="category">Category </label>
+                <label for="category">{{ $t("product_category") }} </label>
                 <select
                   name="category"
                   id="category"
@@ -59,7 +66,7 @@
                 </select>
               </div>
               <div class="form-control">
-                <label for="url">Image </label>
+                <label for="url">{{ $t("product_image") }} </label>
                 <select name="url" id="url" v-model="formData.url" required>
                   <option value="https://placeimg.com/640/480/any">
                     https://placeimg.com/640/480/any
@@ -72,9 +79,9 @@
                 </select>
               </div>
             </div>
-            <base-button class="primary"> Add </base-button>
+            <base-button class="primary"> {{ $t("add") }} </base-button>
             <base-button @click="closeModal" class="secondary">
-              Close
+              {{ $t("close") }}
             </base-button>
           </form>
         </main>
@@ -124,13 +131,9 @@ export default {
   },
 
   computed: {
-    modalTitle() {
-      return (this as any).mode === "edit"
-        ? `Update: ${(this as any).productTitle} (id: ${
-            (this as any).productId
-          }) ?`
-        : "Add new product";
-    },
+    // modalTitle() {
+    //   return
+    // },
 
     fetchMethod() {
       return (this as any).mode === "edit" ? "PUT" : "POST";

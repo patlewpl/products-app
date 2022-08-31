@@ -1,8 +1,10 @@
 <template>
   <section class="product__list">
-    <h1>Product List - {{ products.length }} products</h1>
+    <h1>
+      {{ $t("product_list") }} - {{ products.length }} {{ $t("all_products") }}
+    </h1>
     <base-button @click="activateActionModal" class="primary">
-      Add product
+      {{ $t("add_product") }}
     </base-button>
     <base-spinner v-if="isLoading"></base-spinner>
     <product-details

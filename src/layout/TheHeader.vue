@@ -7,19 +7,30 @@
         </router-link>
       </div>
       <nav class="menu">
+        <div class="lang">
+          <select v-model="$i18n.locale">
+            <option
+              v-for="locale in $i18n.availableLocales"
+              :key="`locale-${locale}`"
+              :value="locale"
+            >
+              {{ locale }}
+            </option>
+          </select>
+        </div>
         <base-button
           v-if="!isLogged"
           link
           class="menu__item primary"
           to="/login"
-          >Login
+          >{{ $t("login") }}
         </base-button>
         <div v-else>
           <base-button link class="menu__item primary" to="/products">
-            Products
+            {{ $t("products") }}
           </base-button>
           <base-button class="menu__item logout secondary" @click="logout">
-            Logout
+            {{ $t("logout") }}
           </base-button>
         </div>
       </nav>
@@ -31,7 +42,6 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import BaseButton from "../components/ui/BaseButton.vue";
 
 export default {
   setup() {
@@ -50,7 +60,6 @@ export default {
       logout,
     };
   },
-  components: { BaseButton },
 };
 </script>
 

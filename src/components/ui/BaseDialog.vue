@@ -3,12 +3,17 @@
     <div class="modal" @wheel.prevent @touchmove.prevent @scroll.prevent>
       <dialog open>
         <header>
-          <h2>{{ actionTitle }}: {{ productTitle }} ?</h2>
+          <h2 v-if="mode === 'delete'">
+            {{ $t("delete") }}: {{ productTitle }} ?
+          </h2>
+          <h2 v-else>{{ actionTitle }}</h2>
         </header>
         <main>
-          <base-button @click="action" class="primary"> Confirm </base-button>
+          <base-button @click="action" class="primary">
+            {{ $t("confirm") }}
+          </base-button>
           <base-button @click="closeModal" class="secondary">
-            Close
+            {{ $t("close") }}
           </base-button>
         </main>
       </dialog>
@@ -19,6 +24,10 @@
 <script lang="ts">
 export default {
   props: {
+    mode: {
+      type: String,
+      required: false,
+    },
     actionTitle: {
       type: String,
       required: true,

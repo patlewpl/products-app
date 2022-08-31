@@ -14,19 +14,19 @@
       </div>
       <div class="product__actions">
         <base-button class="secondary" @click="activateActionModal('edit')">
-          Edit
+          {{ $t("edit") }}
         </base-button>
         <base-button class="primary" @click="confirmAction('delete')">
-          Delete
+          {{ $t("delete") }}
         </base-button>
       </div>
     </div>
   </div>
   <base-dialog
+    mode="delete"
     v-if="isConfirmModalVisible"
     :productId="dataId.toString()"
     :productTitle="productTitle"
-    :actionTitle="actionTitle"
     :action="action"
     @close="closeModal"
   ></base-dialog>

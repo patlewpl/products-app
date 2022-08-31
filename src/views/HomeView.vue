@@ -1,31 +1,33 @@
 <template>
   <main>
     <section>
-      <h1>Welcome!</h1>
-      <p>This is website for manage your products.</p>
-      <p>Please login if you want to continue.</p>
+      <h1>{{ $t("welcome") }}</h1>
+      <p>{{ $t("about") }}</p>
+      <p>{{ $t("about2") }}</p>
     </section>
     <section>
-      <h2>See our advantages below:</h2>
+      <h2>{{ $t("advantages") }}</h2>
       <ul>
         <li>
           <i class="fa-solid fa-forward-fast"></i>
-          <p>Fast updating data</p>
+          <p>{{ $t("advantage1") }}</p>
         </li>
         <li>
           <i class="fa-solid fa-users"></i>
-          <p>1000+ Customers</p>
+          <p>{{ $t("advantage2") }}</p>
         </li>
         <li>
           <i class="fa-solid fa-circle-question"></i>
-          <p>Help 24/7</p>
+          <p>{{ $t("advantage3") }}</p>
         </li>
       </ul>
     </section>
     <section>
       <p>
-        If you want test our app, feel free to
-        <base-button link to="#" class="secondary">Contact us</base-button>
+        {{ $t("footer_text") }}
+        <base-button link to="#" class="secondary">{{
+          $t("contact_us")
+        }}</base-button>
       </p>
     </section>
   </main>

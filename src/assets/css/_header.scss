@@ -27,6 +27,19 @@ header {
   }
 }
 
+.menu {
+  display: flex;
+  align-items: center;
+
+  & .lang {
+    margin-right: 10px;
+
+    & select {
+      padding: 4px;
+    }
+  }
+}
+
 .logout {
   margin-left: 10px;
 }

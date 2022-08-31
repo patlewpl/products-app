@@ -2,12 +2,14 @@
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
+    "outDir": "build",
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
+  "types": ["nuxt-i18n"],
 
   "references": [
     {
