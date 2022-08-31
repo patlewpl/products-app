@@ -2,6 +2,9 @@
 
 Recruitment task for the position of Junior Frontend Developer.
 
+For the purposes of recruitment, I placed this project on GitHub
+https://github.com/patlewpl/products-app
+
 ## Tools
 
 • Vue.js
