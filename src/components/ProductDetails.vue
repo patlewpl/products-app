@@ -53,11 +53,34 @@ export default {
     "dataId",
   ],
   components: { ActionProduct },
+
   setup(props: any) {
     const isConfirmModalVisible = ref(false);
     const isEditAvailable: any = ref(false);
     const actionTitle = ref("");
     const action: any = ref(null);
+
+    async function deleteProduct() {
+      const token = localStorage.getItem("access_token");
+      const url: string = `https://api.escuelajs.co/api/v1/products/${props.dataId}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Delete product failed");
+      }
+
+      location.reload();
+    }
+
+    function activateActionModal() {
+      isEditAvailable.value = true;
+    }
+
     function confirmAction(type: string) {
       isConfirmModalVisible.value = true;
       if (type === "delete") {
@@ -69,24 +92,6 @@ export default {
     function closeModal() {
       isConfirmModalVisible.value = false;
       isEditAvailable.value = false;
-    }
-
-    async function deleteProduct() {
-      const token = localStorage.getItem("access_token");
-      const url: string = `https://api.escuelajs.co/api/v1/products/${props.dataId}`;
-      const response = await fetch(url, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Baerer ${token}`,
-        },
-      });
-      if (response) {
-        location.reload();
-      }
-    }
-
-    function activateActionModal() {
-      isEditAvailable.value = true;
     }
 
     return {

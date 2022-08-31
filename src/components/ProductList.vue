@@ -76,7 +76,7 @@ export default {
       const url: string = "https://api.escuelajs.co/api/v1/products";
       const response = await fetch(url, {
         headers: {
-          Authorization: `Baerer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const responseData = await response.json();

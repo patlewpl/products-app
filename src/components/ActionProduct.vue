@@ -163,14 +163,20 @@ export default {
           images: [(this as any).formData.url],
         }),
       });
-      if (response) {
-        location.reload();
+      if (!response.ok) {
+        console.log("Action product failed");
       }
+      location.reload();
     },
 
     async getCategories() {
       const url = "https://api.escuelajs.co/api/v1/categories?limit=5";
       const response = await fetch(url);
+
+      if (!response.ok) {
+        console.log("Get category failed");
+      }
+
       const responseData = await response.json();
       (this as any).categories.push(responseData);
     },
