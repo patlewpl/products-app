@@ -8,7 +8,11 @@
       </div>
       <nav class="menu">
         <div class="lang">
-          <select v-model="$i18n.locale">
+          <select
+            class="lang__select"
+            v-model="$i18n.locale"
+            @change="choosenLanguage($i18n.locale)"
+          >
             <option
               v-for="locale in $i18n.availableLocales"
               :key="`locale-${locale}`"
@@ -55,7 +59,11 @@ export default {
       store.dispatch("logout");
       router.replace("/login");
     }
+    function choosenLanguage(lang: string) {
+      localStorage.setItem("lang", lang);
+    }
     return {
+      choosenLanguage,
       isLogged,
       logout,
     };
