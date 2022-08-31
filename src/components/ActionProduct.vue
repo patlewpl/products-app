@@ -131,10 +131,6 @@ export default {
   },
 
   computed: {
-    // modalTitle() {
-    //   return
-    // },
-
     fetchMethod() {
       return (this as any).mode === "edit" ? "PUT" : "POST";
     },

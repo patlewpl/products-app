@@ -56,7 +56,7 @@ export default {
 
   setup(props: any) {
     const isConfirmModalVisible = ref(false);
-    const isEditAvailable: any = ref(false);
+    const isEditAvailable = ref(false);
     const actionTitle = ref("");
     const action: any = ref(null);
 

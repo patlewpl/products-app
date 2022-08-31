@@ -51,10 +51,10 @@ export default {
   components: { ProductDetails, BaseSpinner, BaseButton, ActionProduct },
 
   setup() {
-    const page: any = ref(1);
+    const page = ref(1);
     const pages: any = ref([]);
-    const products: any = ref([]);
-    const productsPerPage: any = ref(10);
+    const products = ref([]);
+    const productsPerPage = ref(10);
 
     const isConfirmModalVisible = ref(false);
     const isAddModalAvailable = ref(false);
@@ -62,7 +62,7 @@ export default {
     const actionTitle = ref("");
     const action: any = ref(null);
 
-    const isLoading: any = ref(false);
+    const isLoading = ref(false);
 
     const allProducts = computed(() => {
       return paginate(products.value);
