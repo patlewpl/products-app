@@ -1,7 +1,7 @@
 <template>
   <section class="product__list">
     <h1>Product List - {{ products.length }} products</h1>
-    <base-button @click="activateEditModal" class="primary">
+    <base-button @click="activateActionModal" class="primary">
       Add product
     </base-button>
     <base-spinner v-if="isLoading"></base-spinner>
@@ -30,11 +30,11 @@
       </li>
     </ul>
   </section>
-  <add-product
-    v-if="isAddAvailable"
-    :actionTitle="actionTitle"
+  <action-product
+    mode="add"
+    v-if="isAddModalAvailable"
     @close="closeModal"
-  ></add-product>
+  ></action-product>
 </template>
 
 <script lang="ts">
@@ -43,30 +43,31 @@ import { ref, computed, watch, onMounted } from "vue";
 import ProductDetails from "./ProductDetails.vue";
 import BaseSpinner from "./ui/BaseSpinner.vue";
 import BaseButton from "./ui/BaseButton.vue";
-import AddProduct from "./AddProduct.vue";
+import ActionProduct from "./ActionProduct.vue";
 
 export default {
-  components: { ProductDetails, BaseSpinner, BaseButton, AddProduct },
+  components: { ProductDetails, BaseSpinner, BaseButton, ActionProduct },
 
   setup() {
-    const products: any = ref([]);
     const page: any = ref(1);
     const pages: any = ref([]);
+    const products: any = ref([]);
     const productsPerPage: any = ref(10);
-    const isLoading: any = ref(false);
 
     const isConfirmModalVisible = ref(false);
-    const isAddAvailable = ref(false);
-    const isProductAdded = ref(false);
+    const isAddModalAvailable = ref(false);
+
     const actionTitle = ref("");
     const action: any = ref(null);
+
+    const isLoading: any = ref(false);
 
     const allProducts = computed(() => {
       return paginate(products.value);
     });
 
     function closeModal() {
-      isAddAvailable.value = false;
+      isAddModalAvailable.value = false;
     }
 
     async function fetchProducts() {
@@ -102,18 +103,8 @@ export default {
       return products.slice(from, to);
     }
 
-    // function confirmAction(type: string) {
-    //   isConfirmModalVisible.value = true;
-    //   if (type === "add") {
-    //     actionMethod.value = "Add New Product";
-    //     action.value = addProduct;
-    //   }
-    // }
-
-    function activateEditModal() {
-      isAddAvailable.value = true;
-      actionTitle.value = "Add new product";
-      // action.value = addProduct;
+    function activateActionModal() {
+      isAddModalAvailable.value = true;
     }
 
     watch(products, () => {
@@ -126,9 +117,8 @@ export default {
 
     return {
       isConfirmModalVisible,
-      activateEditModal,
-      isAddAvailable,
-      isProductAdded,
+      activateActionModal,
+      isAddModalAvailable,
       allProducts,
       actionTitle,
       closeModal,

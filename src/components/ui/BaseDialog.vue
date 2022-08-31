@@ -1,15 +1,9 @@
 <template>
   <teleport to="body">
-    <div
-      class="modal"
-      @wheel.prevent
-      @touchmove.prevent
-      @scroll.prevent
-      @click="closeModal"
-    >
+    <div class="modal" @wheel.prevent @touchmove.prevent @scroll.prevent>
       <dialog open>
         <header>
-          <h2>{{ actionTitle }}: {{ productTitle }} (id: {{ productId }}) ?</h2>
+          <h2>{{ actionTitle }}: {{ productTitle }} ?</h2>
         </header>
         <main>
           <base-button @click="action" class="primary"> Confirm </base-button>
@@ -36,6 +30,7 @@ export default {
     productId: {
       type: String,
       required: false,
+      default: "-",
     },
     action: {
       type: Function,

@@ -3,10 +3,10 @@
     <div class="modal" @wheel.prevent @touchmove.prevent @scroll.prevent>
       <dialog open>
         <header>
-          <h2>{{ actionTitle }}</h2>
+          <h2>{{ modalTitle }}</h2>
         </header>
         <main>
-          <form @submit.prevent="addProduct">
+          <form @submit.prevent="fetchActionProductConfirm">
             <div class="add__form">
               <div class="form-control">
                 <label for="title">Product Name </label>
@@ -81,12 +81,19 @@
       </dialog>
     </div>
   </teleport>
+  <base-dialog
+    v-if="isConfirmModalVisible"
+    actionTitle="Confirm"
+    :action="fetchActionProduct"
+    :productTitle="formData.title"
+    @close="toggleConfirmActionModal"
+  ></base-dialog>
 </template>
 
 <script lang="ts">
 export default {
   props: {
-    actionTitle: {
+    mode: {
       type: String,
       required: true,
     },
@@ -112,19 +119,37 @@ export default {
         url: "" as String,
       },
       categories: [],
+      isConfirmModalVisible: false as Boolean,
     };
   },
 
-  methods: {
-    closeModal() {
-      (this as any).$emit("close");
+  computed: {
+    modalTitle() {
+      return (this as any).mode === "edit"
+        ? `Update: ${(this as any).productTitle} (id: ${
+            (this as any).productId
+          }) ?`
+        : "Add new product";
     },
 
-    async addProduct() {
+    fetchMethod() {
+      return (this as any).mode === "edit" ? "PUT" : "POST";
+    },
+  },
+
+  methods: {
+    async fetchActionProduct() {
       const token = localStorage.getItem("access_token");
-      const url: string = "https://api.escuelajs.co/api/v1/products/";
+      let url: string = "https://api.escuelajs.co/api/v1/products/";
+
+      if ((this as any).mode === "edit") {
+        url = `https://api.escuelajs.co/api/v1/products/${
+          (this as any).productId
+        }`;
+      }
+
       const response = await fetch(url, {
-        method: "POST",
+        method: (this as any).fetchMethod,
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -140,7 +165,6 @@ export default {
       });
       if (response) {
         location.reload();
-        console.log("Product added");
       }
     },
 
@@ -149,6 +173,19 @@ export default {
       const response = await fetch(url);
       const responseData = await response.json();
       (this as any).categories.push(responseData);
+    },
+
+    closeModal() {
+      (this as any).$emit("close");
+    },
+
+    fetchActionProductConfirm() {
+      this.toggleConfirmActionModal();
+    },
+
+    toggleConfirmActionModal() {
+      (this as any).isConfirmModalVisible = !(this as any)
+        .isConfirmModalVisible;
     },
   },
 

@@ -13,7 +13,7 @@
         <p class="product__description">{{ productDescription }}</p>
       </div>
       <div class="product__actions">
-        <base-button class="secondary" @click="activateEditModal('edit')">
+        <base-button class="secondary" @click="activateActionModal('edit')">
           Edit
         </base-button>
         <base-button class="primary" @click="confirmAction('delete')">
@@ -23,7 +23,6 @@
     </div>
   </div>
   <base-dialog
-    mode="delete"
     v-if="isConfirmModalVisible"
     :productId="dataId.toString()"
     :productTitle="productTitle"
@@ -31,18 +30,18 @@
     :action="action"
     @close="closeModal"
   ></base-dialog>
-  <base-dialog
+  <action-product
     mode="edit"
     v-if="isEditAvailable"
-    :productId="dataId.toString()"
     :productTitle="productTitle"
-    :actionTitle="actionTitle"
-    :action="action"
+    :productId="dataId.toString()"
     @close="closeModal"
-  ></base-dialog>
+  ></action-product>
 </template>
 <script lang="ts">
 import { ref } from "vue";
+
+import ActionProduct from "./ActionProduct.vue";
 
 export default {
   props: [
@@ -53,6 +52,7 @@ export default {
     "productImage",
     "dataId",
   ],
+  components: { ActionProduct },
   setup(props: any) {
     const isConfirmModalVisible = ref(false);
     const isEditAvailable: any = ref(false);
@@ -65,10 +65,12 @@ export default {
         action.value = deleteProduct;
       }
     }
+
     function closeModal() {
       isConfirmModalVisible.value = false;
       isEditAvailable.value = false;
     }
+
     async function deleteProduct() {
       const token = localStorage.getItem("access_token");
       const url: string = `https://api.escuelajs.co/api/v1/products/${props.dataId}`;
@@ -83,21 +85,13 @@ export default {
       }
     }
 
-    function activateEditModal(type: string) {
+    function activateActionModal() {
       isEditAvailable.value = true;
-      if (type === "edit") {
-        actionTitle.value = "Update";
-        action.value = editProduct;
-      }
-    }
-
-    function editProduct() {
-      console.log("updated");
     }
 
     return {
-      activateEditModal,
       isConfirmModalVisible,
+      activateActionModal,
       isEditAvailable,
       confirmAction,
       deleteProduct,
