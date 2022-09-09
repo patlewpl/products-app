@@ -1,9 +1,14 @@
 # products-app
 
-Recruitment task for the position of Junior Frontend Developer.
+Products app for my portfolio to get a job as Junior Frontend Developer.
 
-For the purposes of recruitment, I placed this project on GitHub
-https://github.com/patlewpl/products-app
+Link: https://delightful-cobbler-f0c2b9.netlify.app/
+GitHub https://github.com/patlewpl/products-app
+
+Custom login details:
+
+login: john@mail.com
+pass: changeme
 
 ## Tools
 
