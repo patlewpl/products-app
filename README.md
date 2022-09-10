@@ -1,6 +1,6 @@
 # products-app
 
-Products app for my portfolio to get a job as Junior Frontend Developer.
+It's a web app to manage products in admin panel.
 
 Link: https://delightful-cobbler-f0c2b9.netlify.app/
 GitHub https://github.com/patlewpl/products-app
