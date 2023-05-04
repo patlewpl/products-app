@@ -1,4 +1,4 @@
-# products-app
+# Products Manager
 
 It's a web app to manage products in admin panel.
 
